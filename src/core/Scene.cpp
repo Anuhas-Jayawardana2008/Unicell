@@ -21,6 +21,17 @@ namespace unicell
 		return this->registry;
 	}
 
+
+	entt::entity& Scene::GetSelectedEntity()
+	{
+		return this->selectedEntity;
+	}
+	
+	void Scene::SetSelectedEntity(entt::entity entity)
+	{
+		this->selectedEntity = entity;
+	}
+
 	void Scene::Update()
 	{
 		auto view = this->registry.view<TransformComponent>();
@@ -28,7 +39,7 @@ namespace unicell
 		{
 			auto& transform = this->registry.get<TransformComponent>(entity);
 			auto& renderer = this->registry.get<SpriteRenderer>(entity);
-			Renderer::DrawQuad(transform.position.x, transform.position.y, transform.scale.x, transform.scale.y);
+			Renderer::DrawQuad(transform.position.x,transform.position.y,transform.scale.x,transform.scale.y,transform.rotation,renderer.color);
 		}
 	}
 }

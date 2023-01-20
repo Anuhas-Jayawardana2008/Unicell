@@ -14,9 +14,13 @@ namespace unicell
 		
 		entt::registry& GetRegistry();
 		entt::entity CreateEntity();
+
+		entt::entity& GetSelectedEntity();
+		void SetSelectedEntity(entt::entity entity);
 		
 		void Update();
 	private:
 		entt::registry registry;
+		entt::entity selectedEntity{ entt::null };
 	};
 }

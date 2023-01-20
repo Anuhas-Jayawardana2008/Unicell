@@ -15,9 +15,10 @@ void main()
 // fragment
 #version 330 core
 
-out vec4 color;
+out vec4 frag_color;
+uniform vec4 color;
 
 void main()
 {
-	color = vec4(0.5);
+	frag_color = color;
 }

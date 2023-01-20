@@ -25,10 +25,12 @@ namespace unicell
 
 		this->currentScene = new Scene();
 		this->worldPanel = std::make_shared<WorldPanel>(currentScene);
+		this->lootPanel = std::make_shared<LootPanel>(currentScene);
 
 		player = this->currentScene->CreateEntity();
 
 		Camera::CreateOrtho(-1.0f, 1.0f, -1.0f, 1.0f);
+		Renderer::Init();
 	}
 
 	Application::~Application()
@@ -44,6 +46,7 @@ namespace unicell
 		ImGui::End();
 
 		this->worldPanel->Update();
+		this->lootPanel->Update();
 	}
 
 	void Application::Update()

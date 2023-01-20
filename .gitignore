@@ -3,6 +3,7 @@
 
 # visual studio specific...
 .vs/
+bin/
 bin-int/
 
 # Compiled Object files

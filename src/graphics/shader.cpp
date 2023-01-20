@@ -37,6 +37,10 @@ namespace unicell
 	{
 		glUniformMatrix4fv(this->getUniformLocation(name), 1, GL_FALSE, glm::value_ptr(value));
 	}
+	void Shader::setVec4(const std::string& name, const glm::vec4& value)
+	{
+		glUniform4f(this->getUniformLocation(name), value.x, value.y, value.z, value.a);
+	}
 
 	void Shader::CompileShader(unsigned int shader, const std::string& type)
 	{

@@ -19,6 +19,7 @@ namespace unicell
 		int getUniformLocation(const std::string& uniform);
 
 		void setMat4(const std::string& name, const glm::mat4& value);
+		void setVec4(const std::string& name, const glm::vec4& value);
 
 		void Bind();
 		void Unbind();
