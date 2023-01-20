@@ -1,6 +1,10 @@
 # Prerequisites
 *.d
 
+# visual studio specific...
+.vs/
+bin-int/
+
 # Compiled Object files
 *.slo
 *.lo
