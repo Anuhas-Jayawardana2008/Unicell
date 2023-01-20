@@ -14,8 +14,6 @@ namespace unicell
 
 	void WorldPanel::Update()
 	{
-		auto view = this->context->GetRegistry().view<TransformComponent>();
-
 		ImGui::Begin("World");
 
 		if (ImGui::BeginPopupContextWindow("context_registry"))
@@ -31,12 +29,36 @@ namespace unicell
 		{
 			ImGui::BeginPopup("context_registry");
 		}
-		for (auto& entity : view)
+
+		auto entities = this->context->GetRegistry().view<TransformComponent>();
+
+		ImGuiTreeNodeFlags baseFlag = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_SpanAvailWidth;
+		for (auto& entity : entities)
 		{
-			auto& entityComponent = this->context->GetRegistry().get<UnicellEntity>(entity);
-			if (ImGui::Button(entityComponent.name.c_str()))
+			auto& crntIdentifierComponent = this->context->GetRegistry().get<UnicellEntity>(entity);
+
+			ImGuiTreeNodeFlags flags = baseFlag;
+			if (this->context->GetSelectedEntity() != entt::null)
+			{
+				flags = (this->context->GetRegistry().get<UnicellEntity>(this->context->GetSelectedEntity()).UID == crntIdentifierComponent.UID) ? ImGuiTreeNodeFlags_Selected : 0 | baseFlag;
+			}
+
+			ImGui::PushID(crntIdentifierComponent.UID);
+
+			bool treeNodeOpen = ImGui::TreeNodeEx(
+				crntIdentifierComponent.name.c_str(),
+				flags
+			);
+			ImGui::PopID();
+
+			if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(0))
 			{
 				this->context->SetSelectedEntity(entity);
+			}
+
+			if (treeNodeOpen)
+			{
+				ImGui::TreePop();
 			}
 		}
 		ImGui::End();

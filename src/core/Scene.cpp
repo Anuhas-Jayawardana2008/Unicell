@@ -21,13 +21,12 @@ namespace unicell
 		return this->registry;
 	}
 
-
 	entt::entity& Scene::GetSelectedEntity()
 	{
 		return this->selectedEntity;
 	}
 	
-	void Scene::SetSelectedEntity(entt::entity entity)
+	void Scene::SetSelectedEntity(const entt::entity& entity)
 	{
 		this->selectedEntity = entity;
 	}
