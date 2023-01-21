@@ -24,12 +24,13 @@ namespace unicell
 		this->framebuffer = std::make_shared<Framebuffer>();
 
 		this->currentScene = new Scene();
+		this->toolbar = std::make_shared<Toolbar>(this->currentScene);
 		this->worldPanel = std::make_shared<WorldPanel>(currentScene);
 		this->lootPanel = std::make_shared<LootPanel>(currentScene);
 
 		player = this->currentScene->CreateEntity();
 
-		Camera::CreateOrtho(-1.0f, 1.0f, -1.0f, 1.0f);
+		Camera::CreateOrtho(1.0f, -1.0f, -1.0f, 1.0f);
 		Renderer::Init();
 	}
 
@@ -45,6 +46,7 @@ namespace unicell
 		ImGui::Image((ImTextureID)this->framebuffer->getTextureID(), { viewportSize.x,viewportSize.y }, { 1,1 }, { 0,0 });
 		ImGui::End();
 
+		this->toolbar->Update();
 		this->worldPanel->Update();
 		this->lootPanel->Update();
 	}

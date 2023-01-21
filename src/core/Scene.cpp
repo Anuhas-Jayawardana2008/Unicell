@@ -31,6 +31,31 @@ namespace unicell
 		this->selectedEntity = entity;
 	}
 
+	void Scene::setPlayState(bool state)
+	{
+		this->playing = state;
+	}
+
+	bool Scene::getPlayState()
+	{
+		return this->playing;
+	}
+
+	void Scene::OnPlayCallback()
+	{
+
+	}
+
+	void Scene::OnStopCallback()
+	{
+
+	}
+
+	void Scene::OnRuntimeCallback()
+	{
+		this->selectedEntity = entt::null;
+	}
+
 	void Scene::Update()
 	{
 		auto view = this->registry.view<TransformComponent>();
@@ -40,5 +65,7 @@ namespace unicell
 			auto& renderer = this->registry.get<SpriteRenderer>(entity);
 			Renderer::DrawQuad(transform.position.x,transform.position.y,transform.scale.x,transform.scale.y,transform.rotation,renderer.color);
 		}
+
+		if (this->playing) this->OnRuntimeCallback();
 	}
 }

@@ -9,11 +9,14 @@ namespace unicell
 		glBindVertexArray(rendererData.quadVAO);
 		rendererData.quadShader->Bind();
 		glEnableVertexAttribArray(0);
-		glm::mat4 model = glm::translate(glm::mat4(1.0f),glm::vec3(x,y,0.0f)) * glm::scale(glm::mat4(1.0f),glm::vec3(w,h,0.0f)) * glm::rotate(glm::mat4(1.0f),glm::radians(rotation),glm::vec3(0.0f,0.0f,1.0f));
+		
+		const glm::mat4 model = glm::translate(glm::mat4(1.0f),glm::vec3(x,y,0.0f)) * glm::scale(glm::mat4(1.0f),glm::vec3(w,h,0.0f)) * glm::rotate(glm::mat4(1.0f),glm::radians(rotation),glm::vec3(0.0f,0.0f,1.0f));
+		
 		rendererData.quadShader->setMat4("projection", Camera::getProjectionMatrix());
 		rendererData.quadShader->setMat4("view", Camera::getViewMatrix());
 		rendererData.quadShader->setMat4("model", model);
 		rendererData.quadShader->setVec4("color", color);
+
 		glDrawArrays(GL_QUADS, 0, 4);
 		glDisableVertexAttribArray(0);
 		rendererData.quadShader->Unbind();
@@ -45,7 +48,6 @@ namespace unicell
 
 	void Renderer::Clear()
 	{
-		glClearColor(1, 0, 0, 1);
 		glClear(GL_COLOR_BUFFER_BIT);
 	}
 

@@ -73,13 +73,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>.\bin</OutDir>
     <IntDir>.\bin-int</IntDir>
-    <ExternalIncludePath>$(SolutionDir)/deps/GLFW/include;$(SolutionDir)/deps/glad/include;$(SolutionDir)/deps/imgui/include;$(SolutionDir)/deps/entt/include;$(SolutionDir)/deps/glm;$(SolutionDir)/include;$(ExternalIncludePath)</ExternalIncludePath>
+    <ExternalIncludePath>$(SolutionDir)/deps/GLFW/include;$(SolutionDir)/deps/glad/include;$(SolutionDir)/deps/imgui/include;$(SolutionDir)/deps/entt/include;$(SolutionDir)/deps/glm;$(SolutionDir)/deps/stb;$(SolutionDir)/include;$(ExternalIncludePath)</ExternalIncludePath>
     <LibraryPath>$(SolutionDir)/deps/GLFW/lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>.\bin</OutDir>
     <IntDir>.\bin-int</IntDir>
-    <ExternalIncludePath>$(SolutionDir)/deps/GLFW/include;$(SolutionDir)/deps/glad/include;$(SolutionDir)/deps/imgui/include;$(SolutionDir)/deps/entt/include;$(SolutionDir)/deps/glm;$(SolutionDir)/include;$(ExternalIncludePath)</ExternalIncludePath>
+    <ExternalIncludePath>$(SolutionDir)/deps/GLFW/include;$(SolutionDir)/deps/glad/include;$(SolutionDir)/deps/imgui/include;$(SolutionDir)/deps/entt/include;$(SolutionDir)/deps/glm;$(SolutionDir)/deps/stb;$(SolutionDir)/include;$(ExternalIncludePath)</ExternalIncludePath>
     <LibraryPath>$(SolutionDir)/deps/GLFW/lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -151,6 +151,7 @@
     <ClCompile Include="deps\imgui\src\imgui_impl_opengl3.cpp" />
     <ClCompile Include="deps\imgui\src\imgui_tables.cpp" />
     <ClCompile Include="deps\imgui\src\imgui_widgets.cpp" />
+    <ClCompile Include="deps\stb\stb_image.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\core\Scene.cpp" />
     <ClCompile Include="src\graphics\camera.cpp" />
@@ -159,12 +160,15 @@
     <ClCompile Include="src\graphics\ImGuiLayer.cpp" />
     <ClCompile Include="src\graphics\Renderer.cpp" />
     <ClCompile Include="src\graphics\shader.cpp" />
+    <ClCompile Include="src\graphics\Texture.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\panels\LootPanel.cpp" />
+    <ClCompile Include="src\panels\Toolbar.cpp" />
     <ClCompile Include="src\panels\WorldPanel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="deps\entt\include\entt.hpp" />
+    <ClInclude Include="deps\stb\stb_image.h" />
     <ClInclude Include="include\Application.h" />
     <ClInclude Include="include\core\components.h" />
     <ClInclude Include="include\core\Scene.h" />
@@ -174,7 +178,9 @@
     <ClInclude Include="include\graphics\ImGuiLayer.h" />
     <ClInclude Include="include\graphics\Renderer.h" />
     <ClInclude Include="include\graphics\shader.h" />
+    <ClInclude Include="include\graphics\Texture.h" />
     <ClInclude Include="include\panels\LootPanel.h" />
+    <ClInclude Include="include\panels\Toolbar.h" />
     <ClInclude Include="include\panels\WorldPanel.h" />
   </ItemGroup>
   <ItemGroup>

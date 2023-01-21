@@ -17,9 +17,18 @@ namespace unicell
 
 		entt::entity& GetSelectedEntity();
 		void SetSelectedEntity(const entt::entity& entity);
+
+		// callbacks...
+		void OnPlayCallback();
+		void OnStopCallback();
+		void OnRuntimeCallback();
 		
+		void setPlayState(bool state);
+		bool getPlayState();
+
 		void Update();
 	private:
+		bool playing = false;
 		entt::registry registry;
 		entt::entity selectedEntity{ entt::null };
 	};

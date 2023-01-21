@@ -6,6 +6,9 @@
 bin/
 bin-int/
 
+# useless stuff (bruh)
+*.pdb
+
 # Compiled Object files
 *.slo
 *.lo
@@ -35,3 +38,5 @@ bin-int/
 *.exe
 *.out
 *.app
+bin/Unicell-Engine.pdb
+*.pdb

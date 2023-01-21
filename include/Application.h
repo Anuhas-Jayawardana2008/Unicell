@@ -9,8 +9,9 @@
 
 #include "core/Scene.h"
 
-#include "panels/WorldPanel.h"
+#include "panels/Toolbar.h"
 #include "panels/LootPanel.h"
+#include "panels/WorldPanel.h"
 
 #include <memory>
 
@@ -30,6 +31,7 @@ namespace unicell
 		void RenderImGui();
 	private:
 		Scene* currentScene = nullptr;
+		std::shared_ptr<Toolbar> toolbar;
 		std::shared_ptr<WorldPanel> worldPanel;
 		std::shared_ptr<LootPanel> lootPanel;
 	private:
