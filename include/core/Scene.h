@@ -16,7 +16,7 @@ namespace unicell
 		entt::entity CreateEntity();
 
 		entt::entity& GetSelectedEntity();
-		void SetSelectedEntity(entt::entity entity);
+		void SetSelectedEntity(const entt::entity& entity);
 		
 		void Update();
 	private:

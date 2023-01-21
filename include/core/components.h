@@ -6,9 +6,11 @@
 
 namespace unicell
 {
+	static int idCounter = 0;
 	struct UnicellEntity
 	{
 		std::string name = "entity";
+		int UID = idCounter++;
 	};
 
 	struct SpriteRenderer
