@@ -22,8 +22,8 @@ namespace unicell
 		{
 			bool state = !this->context->getPlayState();
 			
-			if (state == true) this->context->OnStopCallback();
-			if (state == false) this->context->OnPlayCallback();
+			if (state == false) this->context->OnStopCallback();
+			if (state == true) this->context->OnPlayCallback();
 
 			this->context->setPlayState(state);
 			if (state == true) this->playButtonCurrentState = this->stopIcon;

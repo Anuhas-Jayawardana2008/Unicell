@@ -4,6 +4,8 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+#include <box2D/box2d.h>
+
 namespace unicell
 {
 	static int idCounter = 0;
@@ -11,6 +13,16 @@ namespace unicell
 	{
 		std::string name = "entity";
 		int UID = idCounter++;
+	};
+
+	struct PhysicsComponent
+	{
+		bool isDynamic = false;
+		float density = 0.9f;
+		float friction = 0.0f;
+		float restitution = 0.0f;
+		float restitutionThreshold = 0.0f;
+		b2Body* body;
 	};
 
 	struct SpriteRenderer

@@ -16,6 +16,20 @@ namespace unicell
 			}
 		}
 
+		if (context->GetRegistry().try_get<PhysicsComponent>(entity) != nullptr)
+		{
+			if (ImGui::TreeNode("Physics Component"))
+			{
+				ImGui::Checkbox("dynamic", &context->GetRegistry().get<PhysicsComponent>(entity).isDynamic);
+				ImGui::DragFloat("friction", &context->GetRegistry().get<PhysicsComponent>(entity).density);
+				ImGui::DragFloat("density", &context->GetRegistry().get<PhysicsComponent>(entity).density);
+				ImGui::DragFloat("friction", &context->GetRegistry().get<PhysicsComponent>(entity).friction);
+				ImGui::DragFloat("restitution", &context->GetRegistry().get<PhysicsComponent>(entity).restitution);
+				ImGui::DragFloat("restitution threshold", &context->GetRegistry().get<PhysicsComponent>(entity).restitutionThreshold);
+				ImGui::TreePop();
+			}
+		}
+
 		if (context->GetRegistry().try_get<SpriteRenderer>(entity) != nullptr)
 		{
 			if (ImGui::TreeNode("Sprite Renderer"))
