@@ -3,6 +3,7 @@
 #include "core/Scene.h"
 
 #include "imgui.h"
+#include <filesystem>
 
 namespace unicell
 {
@@ -14,6 +15,8 @@ namespace unicell
 
 		void DrawComponents(entt::entity& entity);
 		void Update();
+	private:
+		void AttachScriptToEntity(const entt::entity& entity);
 	private:
 		Scene* context = nullptr;
 	};

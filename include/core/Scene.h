@@ -1,6 +1,7 @@
 #pragma once
 
 #include "core/components.h"
+#include "core/ScriptEngine.h"
 #include "graphics/Renderer.h"
 
 #include <entt.hpp>
@@ -30,11 +31,9 @@ namespace unicell
 
 		void Update();
 	private:
-		std::vector<b2Body*> physicsBodies;
-		std::shared_ptr<b2World> physicsWorld;
-
-		void CreatePhysicsWorld();
-		void UpdatePhysicsWorld();
+		std::shared_ptr<ScriptEngine> scriptEngine;
+		void InitializeScripts();
+		void UpdateScripts();
 	private:
 		bool playing = false;
 		entt::registry registry;

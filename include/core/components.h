@@ -15,6 +15,11 @@ namespace unicell
 		int UID = idCounter++;
 	};
 
+	struct ScriptComponent
+	{
+		std::string scriptPath = "";
+	};
+
 	struct PhysicsComponent
 	{
 		bool isDynamic = false;

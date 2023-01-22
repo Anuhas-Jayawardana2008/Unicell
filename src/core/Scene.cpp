@@ -5,6 +5,7 @@ namespace unicell
 	Scene::Scene()
 	{
 		this->registry = entt::basic_registry();
+		this->scriptEngine = std::make_shared<ScriptEngine>(this);
 	}
 
 	entt::entity Scene::CreateEntity()
@@ -14,72 +15,54 @@ namespace unicell
 		this->registry.emplace<UnicellEntity>(result);
 		this->registry.emplace<TransformComponent>(result);
 		this->registry.emplace<SpriteRenderer>(result);
-		this->registry.emplace<PhysicsComponent>(result);
+		auto& sc = this->registry.emplace<ScriptComponent>(result);
+		sc.scriptPath = "assets/scripts/test.lua";
 
 		return result;
 	}
 
-	void Scene::CreatePhysicsWorld()
+	// SCRIPTS
+	void Scene::InitializeScripts()
 	{
-		this->physicsWorld = std::make_shared<b2World>(b2Vec2(0.0f, -0.009f));
+		this->scriptEngine->Initialize();
+		this->scriptEngine->LoadEngineUtils();
 
-		auto view = this->registry.view<PhysicsComponent>();
+		auto view = this->registry.view<ScriptComponent>();
+		for (auto& entity : view)
+		{
+			auto& sc = this->registry.get<ScriptComponent>(entity);
+			this->scriptEngine->RunFile(sc.scriptPath);
+			this->scriptEngine->Start(entity);
+		}
+	}
+	void Scene::UpdateScripts()
+	{
+		auto view = this->registry.view<ScriptComponent>();
 
 		for (auto& entity : view)
 		{
-			auto& transform = this->registry.get<TransformComponent>(entity);
-			auto& pc = this->registry.get<PhysicsComponent>(entity);
-			
-			b2BodyDef bodyDef;
-			if (pc.isDynamic) bodyDef.type = b2_dynamicBody;
-			if (!pc.isDynamic) bodyDef.type = b2_staticBody;
-			bodyDef.position = b2Vec2(transform.position.x,transform.position.y);
-
-			b2PolygonShape shape;
-			shape.SetAsBox(transform.scale.x / 2,transform.scale.y / 2);
-
-			b2FixtureDef fixtureDef;
-			fixtureDef.density = pc.density;
-			fixtureDef.shape = &shape;
-			fixtureDef.friction = pc.friction;
-			fixtureDef.restitution = pc.restitution;
-			fixtureDef.restitutionThreshold = pc.restitutionThreshold;
-
-			b2Body* body = this->physicsWorld->CreateBody(&bodyDef);
-			pc.body = body;
-			body->CreateFixture(&fixtureDef);
+			auto& sc = this->registry.get<ScriptComponent>(entity);
+			this->scriptEngine->RunFile(sc.scriptPath);
+			this->scriptEngine->EditProperties(entity);
+			this->scriptEngine->Update();
 		}
 	}
-
-	void Scene::UpdatePhysicsWorld()
-	{
-		this->physicsWorld->Step(3.0f, 6, 2);
-		auto view = this->registry.view<PhysicsComponent>();
-
-		for (auto& entity : view)
-		{
-			auto& transform = this->registry.get<TransformComponent>(entity);
-			auto& pc = this->registry.get<PhysicsComponent>(entity);
-			
-			transform.position.x = pc.body->GetPosition().x;
-			transform.position.y = pc.body->GetPosition().y;
-			transform.rotation = pc.body->GetAngle();
-		}
-	}
+	// END - SCRIPTS
 
 	void Scene::OnPlayCallback()
 	{
-		this->CreatePhysicsWorld();
+		this->InitializeScripts();
 	}
 
 	void Scene::OnStopCallback()
 	{
+		this->scriptEngine->Close();
 	}
 
 	void Scene::OnRuntimeCallback()
 	{
+		this->UpdateScripts();
 		this->selectedEntity = entt::null;
-		this->UpdatePhysicsWorld();
 	}
 
 	void Scene::Update()
